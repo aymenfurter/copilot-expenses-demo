@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expenses Filing App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Contoso - Expenses Management</h1>
+        <form id="claimForm">
+            <div class="intelligent-app-toggle">
+                <label for="intelligentApp">Intelligent App:</label>
+                <input type="checkbox" id="intelligentApp" name="intelligentApp">
+            </div>
+
+            <label for="fileUpload" class="emoji-button" id="emoji-button">✨ <span class="button-text">Upload a picture to file your Expenses</span></label>
+            <input type="file" id="fileUpload" name="file" hidden>
+
+            <div id="imagePreviewContainer" style="display: none;">
+                <img id="imagePreview" src="" alt="Uploaded Image" style="max-width: 100%; height: auto;"/>
+            </div>
+            <div id="replyTextContainer" class="chat-bubble">
+                <span class="emoji-lion" role="img" aria-label="lion">🦁</span>
+                <p id="replyText"></p>
+            </div>
+            
+            <div class="intelligent-app-confirm" id="intelligent-app-confirm">
+                <p>Would you like to file a claim?</p>
+                <button type="button" id="confirmButton" onClick="toggleFormFieldsVisibility(true)">Yes</button>
+                <button type="button" id="backButton" class="back" onClick="location.href = '/'">Go back</button>
+            </div>
+
+            <input type="text" id="claimDate" name="claimDate" placeholder="Date" >
+            <input type="text" id="numberOfPeople" name="numberOfPeople" placeholder="Number of People" >
+            <input type="text" id="merchantName" name="merchantName" placeholder="Merchant" >
+
+            <input type="text" id="geographicalLocation" name="geographicalLocation" placeholder="Location" >
+            <textarea id="businessJustification" name="businessJustification" placeholder="Business Justification" ></textarea>
+
+            <select id="expenseType" name="expenseType" >
+                <option value="">Please select expense type</option>
+                <option value="CLIENT_ENTERTAINMENT">Client Entertainment</option>
+                <option value="GROUND_TRANSPORTATION">Ground Transportation</option>
+                <option value="OTHER">Other</option>
+            </select>
+            <!--
+            <select id="carInsuranceType" name="carInsuranceType" >
+                <option value="">Please select sub insurance type</option>
+                <option value="THEFT">Theft</option>
+                <option value="PARKING_DAMAGE">Parking Damage</option>
+                <option value="BROKEN_GLASS">Broken Glass</option>
+                <option value="OTHER">Other</option>
+            </select>
+            <select id="estimatedCostCategory" name="estimatedCostCategory" >
+                <option value="">Please select estimated cost category</option>
+                <option value="MINOR">Minor</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="SEVERE">Severe</option>
+            </select>-->
+            <!-- Buttons -->
+            <button type="submit">File Expenses</button>
+            <button type="reset" class="reset-button">Reset</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

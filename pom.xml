@@ -1,0 +1,107 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.microsoft.openai.samples</groupId>
+    <artifactId>expenses-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.1</version>
+    </parent>
+
+    <properties>
+        <java.version>17</java.version>
+        <springdoc-openapi-ui.version>2.3.0</springdoc-openapi-ui.version>
+        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <semantic-kernel.version>0.2.13-alpha</semantic-kernel.version>
+    </properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.microsoft.semantic-kernel</groupId>
+				<artifactId>semantickernel-bom</artifactId>
+				<version>${semantic-kernel.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+    <dependencies>
+        <!-- Spring Boot Web Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- SpringDoc OpenAPI UI -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi-ui.version}</version>
+        </dependency>
+
+        <!-- SpringFox Swagger 2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger2.version}</version>
+        </dependency>
+
+        <dependency>
+			<groupId>com.microsoft.semantic-kernel</groupId>
+			<artifactId>semantickernel-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.semantic-kernel</groupId>
+			<artifactId>semantickernel-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.semantic-kernel</groupId>
+			<artifactId>semantickernel-connectors-ai-openai</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.semantic-kernel</groupId>
+			<artifactId>semantickernel-planners</artifactId>
+		</dependency>
+        <!-- GPT-4 Vision not yet supported by SK -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20210307</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-imaging</artifactId>
+            <version>1.0-alpha2</version>
+        </dependency>
+
+        <!-- Spring Boot Test Starter (for testing) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
