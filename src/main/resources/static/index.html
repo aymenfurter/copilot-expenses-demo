@@ -11,7 +11,7 @@
         <h1>Contoso - Expenses Management</h1>
         <form id="claimForm">
             <div class="intelligent-app-toggle">
-                <label for="intelligentApp">Intelligent App:</label>
+                <div for="intelligentApp">Intelligent App:</div>
                 <input type="checkbox" id="intelligentApp" name="intelligentApp">
             </div>
 
@@ -32,17 +32,33 @@
                 <button type="button" id="backButton" class="back" onClick="location.href = '/'">Go back</button>
             </div>
 
-            <input type="text" id="claimDate" name="claimDate" placeholder="Date" >
-            <input type="text" id="numberOfPeople" name="numberOfPeople" placeholder="Number of People" >
-            <input type="text" id="merchantName" name="merchantName" placeholder="Merchant" >
+            <label for="claimDate" id="claimDateLabel">Claim Date</label>
+            <input type="text" id="claimDate" name="claimDate">
 
-            <input type="text" id="geographicalLocation" name="geographicalLocation" placeholder="Location" >
-            <textarea id="businessJustification" name="businessJustification" placeholder="Business Justification" ></textarea>
+            <label for="numberOfPeople" id="numberOfPeopleLabel">Number of People</label>
+            <input type="text" id="numberOfPeople" name="numberOfPeople">
+            <label id="numberOfPeopleReasoning"></label>
+            
+            <label for="merchantName" id="merchantNameLabel">Merchant Name</label>
+            <input type="text" id="merchantName" name="merchantName">
 
+            <label for="geographicalLocation" id="geographicalLocationLabel">Location</label>
+            <input type="text" id="geographicalLocation" name="geographicalLocation">
+            
+            <label for="total" id="totalLabel">Total amount</label>
+            <input type="text" id="total" name="total">
+
+            <label for="businessJustification" id="businessJustificationLabel">Business Justification</label>
+            <textarea id="businessJustification" name="businessJustification"></textarea>
+
+            <label for="expenseType" id="expenseTypeLabel">Expense Type</label>
             <select id="expenseType" name="expenseType" >
                 <option value="">Please select expense type</option>
-                <option value="CLIENT_ENTERTAINMENT">Client Entertainment</option>
-                <option value="GROUND_TRANSPORTATION">Ground Transportation</option>
+                <option value="MEALS">Meals</option>
+                <option value="TRAVEL">Travel</option>
+                <option value="OFFICE_SUPPLIES">Office Supplies</option>
+                <option value="EVENTS">Events</option>
+                <option value="TRAINING">Training</option>
                 <option value="OTHER">Other</option>
             </select>
             <!--

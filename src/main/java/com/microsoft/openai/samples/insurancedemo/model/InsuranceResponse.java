@@ -6,19 +6,27 @@ public class InsuranceResponse {
     private String numberOfPeople;
     private String merchantName;
     private String geographicalLocation;
-    private String businessJustification;
+    private String numberOfPeopleReasoning;
+    private String total;
 
-    public InsuranceResponse(String replyText, ExpenseType expenseType, String merchantName, String numberOfPeople, String geographicalLocation, String businessJustification) {
+    public InsuranceResponse(String replyText, ExpenseType expenseType, String merchantName, String numberOfPeople, String geographicalLocation, String numberOfPeopleReasoning, String total) {
         this.replyText = replyText;
         this.expenseType = expenseType;
         this.numberOfPeople = numberOfPeople;
         this.merchantName = merchantName;
         this.geographicalLocation = geographicalLocation;
-        this.businessJustification = businessJustification;
+        this.numberOfPeopleReasoning = numberOfPeopleReasoning;
+        this.total = total;
+    }
 
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
  
-
     public ExpenseType getExpenseType() {
         return expenseType;
     }
@@ -51,19 +59,19 @@ public class InsuranceResponse {
         this.geographicalLocation = geographicalLocation;
     }
 
-    public String getBusinessJustification() {
-        return businessJustification;
-    }
-
-    public void setBusinessJustification(String businessJustification) {
-        this.businessJustification = businessJustification;
-    }
-
     public String getReplyText() {
         return replyText;
     }
 
     public void setReplyText(String replyText) {
         this.replyText = replyText;
+    }
+
+    public String getNumberOfPeopleReasoning() {
+        return numberOfPeopleReasoning;
+    }
+
+    public void setNumberOfPeopleReasoning(String numberOfPeopleReasoning) {
+        this.numberOfPeopleReasoning = numberOfPeopleReasoning;
     }
 }

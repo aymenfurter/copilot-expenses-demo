@@ -57,9 +57,11 @@ function handleSubmitFile(file) {
 
 function populateForm(data) {
     document.getElementById('numberOfPeople').value = data.numberOfPeople || '';
+    document.getElementById('numberOfPeopleReasoning').innerHTML = data.numberOfPeopleReasoning || '';
     document.getElementById('merchantName').value = data.merchantName || '';
     document.getElementById('geographicalLocation').value = data.geographicalLocation || '';
-    document.getElementById('businessJustification').value = data.businessJustification || '';
+    document.getElementById('total').value = data.total || '';
+    // not required: document.getElementById('businessJustification').value = data.businessJustification || '';
     document.getElementById('expenseType').value = data.expenseType || '';
     var dd = new Date().toLocaleDateString('en-GB');
     document.getElementById('claimDate').value = dd || '';
@@ -110,7 +112,7 @@ function toggleLoader(show) {
 
 function toggleFormFieldsVisibility(show) {
     document.getElementById('intelligent-app-confirm').style.display = 'none';
-    const fields = document.querySelectorAll('#claimForm input:not(#fileUpload), #claimForm select, #claimForm textarea');
+    const fields = document.querySelectorAll('#claimForm label, #claimForm input:not(#fileUpload), #claimForm select, #claimForm textarea');
     fields.forEach(field => {
         if (show) {
             field.classList.add('show-field');

@@ -51,15 +51,9 @@ public class ImageAnalysisService {
             throw new RuntimeException("Error processing image upload");
         }
     }
-    private static final String prompt = "1. What kind of expense type is this? (CLIENT_ENTERTAINMENT, GROUND_TRANSPORTATION, OTHER)" +
-    "2. How many people have been eating?" +
-    "3. Who is the merchant?" +
-    "4. What location?" +
-    "5. Provide a draft for a business justification. Add '...' at the end to indicate where the user should complete the text.";
-
 
     public InsuranceResponse parseResponse(String responseText) {
-        if (!responseText.matches("(?s)1\\. .*2\\. .*3\\. .*4\\. .*5\\..*")) {
+        if (!responseText.matches("(?s)1\\. .*2\\. .*3\\. .*4\\. .*5\\. .*6\\..*")) {
             throw new RuntimeException("Invalid response format");
         }
 
@@ -67,9 +61,10 @@ public class ImageAnalysisService {
 
         ExpenseType expenseType = ExpenseType.valueOf(parts[0].split("\\.")[1].trim());
         String numberOfPeople = parts[1].split("\\.")[1].trim();
-        String merchantName = parts[2].split("\\.")[1].trim();
-        String geographicalLocation = parts[3].split("\\.")[1].trim();
-        String businessJustification = parts[4].substring(3).trim();
+        String numberOfPeopleReasoning = parts[2].split("\\.")[1].trim();
+        String merchantName = parts[3].split("\\.")[1].trim();
+        String geographicalLocation = parts[4].split("\\.")[1].trim();
+        String total = parts[5].split("\\.")[1].trim();
 
         return new InsuranceResponse(
             replyText(responseText),
@@ -77,7 +72,8 @@ public class ImageAnalysisService {
             merchantName,
             numberOfPeople,
             geographicalLocation,
-            businessJustification
+            numberOfPeopleReasoning,
+            total
         );
     }
 
@@ -102,7 +98,7 @@ public class ImageAnalysisService {
         kernel.importSkill(new EntertainmentExpensePolicyPlugin(), "EntertainmentExpensePolicyPlugin");
         kernel.importSkill(new MathPlugin(), "MathPlugin");
 
-        var goal = "Your goal is by using the ExpensesPolicyPlugin to 1. find out which if the filed expense is compliant with the expense policy. Provide the information about the related parts of the expense policy.Use an emoji in your response. \nExpense Claim Information: "
+        var goal = "Your goal is by using the ExpensesPolicyPlugin to 1. find out if the filed expense is compliant with the expense policy. Provide the information about the related parts of the expense policy. Use an emoji in your response. \nExpense Claim Information: "
                 + responseText;
         StepwisePlanner planner = new DefaultStepwisePlanner(kernel, null, null); 
         var plan = planner.createPlan(goal);

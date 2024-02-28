@@ -21,11 +21,12 @@ public class OpenAIVisionClient {
     
     private String apiKey = System.getenv("AZURE_OPEN_AI_KEY");
     private static final String API_ENDPOINT = System.getenv("AZURE_OPEN_AI_ENDPOINT") + "openai/deployments/vision/chat/completions?api-version=2023-07-01-preview";
-    private static final String prompt = "1. What kind of expense type is this? (CLIENT_ENTERTAINMENT, HOUSE_INSURANCE, OTHER)" +
-                            "2. How many people have been eating?" +
-                            "3. Who is the merchant?" +
-                            "4. What location?" +
-                            "5. Provide a draft for a business justification. Add '...' at the end to indicate where the user should complete the text.";
+    private static final String prompt = "Answer these questions, only answer with the specific answer, dont form sentences. 1. What kind of expense type is this? (MEALS, TRAVEL, OFFICE_SUPPLIES, EVENTS, TRAINING, OTHER)" +
+                            "2. How many people have been eating? (Only numbers, no text)" +
+                            "3. How could you tell how many people were eating? (single sentence)" +
+                            "4. Who is the merchant?" +
+                            "5. What location?" +
+                            "6. What is the total amount?";
 
     public VisionResponse sendVisionRequest(String base64Image) throws IOException {
         LOGGER.info("====================");
