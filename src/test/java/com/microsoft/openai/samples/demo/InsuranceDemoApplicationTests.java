@@ -1,4 +1,4 @@
-package com.microsoft.openai.samples.insurancedemo;
+package com.microsoft.openai.samples.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

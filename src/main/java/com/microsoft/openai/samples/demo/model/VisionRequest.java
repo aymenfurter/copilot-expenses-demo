@@ -1,4 +1,4 @@
-package com.microsoft.openai.samples.insurancedemo.model;
+package com.microsoft.openai.samples.demo.model;
 
 public class VisionRequest {
 

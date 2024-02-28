@@ -1,6 +1,5 @@
-package com.microsoft.openai.samples.insurancedemo.client;
+package com.microsoft.openai.samples.demo.client;
 
-import com.microsoft.openai.samples.insurancedemo.model.VisionResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -11,6 +10,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.microsoft.openai.samples.demo.model.VisionResponse;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.microsoft.openai.samples.insurancedemo.plugin;
+package com.microsoft.openai.samples.demo.plugin;
 
 import com.microsoft.semantickernel.skilldefinition.annotations.DefineSKFunction;
 import com.microsoft.semantickernel.skilldefinition.annotations.SKFunctionInputAttribute;

@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function handleSubmitFile(file) {
-    
     const imagePreview = document.getElementById('imagePreview');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
     imagePreview.src = URL.createObjectURL(file);
@@ -39,20 +38,39 @@ function handleSubmitFile(file) {
 
     toggleLoader(true);
 
+
+    var e = document.getElementById("expenseType");
+    var expenseType = e.options[e.selectedIndex].value;
+
+    document.getElementById('expenseType').style.setProperty('display', 'none', 'important');
+    document.getElementById('expenseTypeLabel').style.setProperty('display', 'none', 'important');
+
+
     fetch('/api/image-analysis/upload', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'expenseType': expenseType
+        }
     })
     .then(response => response.json())
     .then(data => {
         document.getElementById('intelligent-app-confirm').style.display = 'block';
         document.getElementById('confirmButton').style.display = 'block';
         document.getElementById('backButton').style.display = 'block';
+        document.getElementById('expenseType').setAttribute('cssText', 'display:block !important');
+
+
         populateForm(data);
         displayReplyText(data.replyText);
     })
     .catch(error => console.error('Error:', error))
     .finally(() => toggleLoader(false));
+}
+
+function showExpenseTypes() {
+    document.getElementById('expenseType').style.setProperty('display', 'block', 'important');
+    document.getElementById('expenseTypeLabel').style.setProperty('display', 'block', 'important');
 }
 
 function populateForm(data) {

@@ -1,13 +1,13 @@
-package com.microsoft.openai.samples.insurancedemo;
+package com.microsoft.openai.samples.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InsuranceDemoApplication {
+public class DemoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InsuranceDemoApplication.class, args);
+		SpringApplication.run(DemoApplication.class, args);
 	}
 
 }

@@ -1,13 +1,13 @@
-package com.microsoft.openai.samples.insurancedemo.service;
+package com.microsoft.openai.samples.demo.service;
 
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.core.credential.AzureKeyCredential;
-import com.microsoft.openai.samples.insurancedemo.client.OpenAIVisionClient;
-import com.microsoft.openai.samples.insurancedemo.model.*;
-import com.microsoft.openai.samples.insurancedemo.plugin.EntertainmentExpensePolicyPlugin;
-import com.microsoft.openai.samples.insurancedemo.plugin.MathPlugin;
-import com.microsoft.openai.samples.insurancedemo.util.FileUtil;
+import com.microsoft.openai.samples.demo.client.OpenAIVisionClient;
+import com.microsoft.openai.samples.demo.model.*;
+import com.microsoft.openai.samples.demo.plugin.EntertainmentExpensePolicyPlugin;
+import com.microsoft.openai.samples.demo.plugin.MathPlugin;
+import com.microsoft.openai.samples.demo.util.FileUtil;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.orchestration.SKContext;
@@ -42,17 +42,17 @@ public class ImageAnalysisService {
     @Autowired
     private OpenAIVisionClient openAIVisionClient;
 
-    public InsuranceResponse analyzeImage(MultipartFile file) {
+    public Response analyzeImage(MultipartFile file, String expenseType) {
         try {
             VisionResponse response = openAIVisionClient.sendVisionRequest(FileUtil.convertMultiPartToFileBase64(file));
-            return parseResponse(response.getResponseText());
+            return parseResponse(response.getResponseText(), expenseType);
         } catch (IOException e) {
             LOGGER.error("Error processing image: {}", e.getMessage());
             throw new RuntimeException("Error processing image upload");
         }
     }
 
-    public InsuranceResponse parseResponse(String responseText) {
+    public Response parseResponse(String responseText, String selectedExpenseType) {
         if (!responseText.matches("(?s)1\\. .*2\\. .*3\\. .*4\\. .*5\\. .*6\\..*")) {
             throw new RuntimeException("Invalid response format");
         }
@@ -66,8 +66,8 @@ public class ImageAnalysisService {
         String geographicalLocation = parts[4].split("\\.")[1].trim();
         String total = parts[5].split("\\.")[1].trim();
 
-        return new InsuranceResponse(
-            replyText(responseText),
+        return new Response(
+            replyText(responseText, selectedExpenseType),
             expenseType,
             merchantName,
             numberOfPeople,
@@ -77,7 +77,7 @@ public class ImageAnalysisService {
         );
     }
 
-    public String replyText(String responseText) {
+    public String replyText(String responseText, String selectedExpenseType) {
         String ENDPOINT = System.getenv("AZURE_OPEN_AI_ENDPOINT");
         String API_KEY = System.getenv("AZURE_OPEN_AI_KEY");
 
@@ -98,7 +98,7 @@ public class ImageAnalysisService {
         kernel.importSkill(new EntertainmentExpensePolicyPlugin(), "EntertainmentExpensePolicyPlugin");
         kernel.importSkill(new MathPlugin(), "MathPlugin");
 
-        var goal = "Your goal is by using the ExpensesPolicyPlugin to 1. find out if the filed expense is compliant with the expense policy. Provide the information about the related parts of the expense policy. Use an emoji in your response. \nExpense Claim Information: "
+        var goal = "Your goal is to verify if the selected expense type ("+selectedExpenseType+") lines up with the extracted expense information (let the user know that they may have selected the wrong type if required). Then, by using the ExpensesPolicyPlugin to 1. find out if the filed expense is compliant with the expense policy. Provide the information about the related parts of the expense policy. Use an emoji in your response. \nExtracted Expense Claim Information: "
                 + responseText;
         StepwisePlanner planner = new DefaultStepwisePlanner(kernel, null, null); 
         var plan = planner.createPlan(goal);

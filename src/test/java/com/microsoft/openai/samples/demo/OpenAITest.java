@@ -1,4 +1,4 @@
-package com.microsoft.openai.samples.insurancedemo;
+package com.microsoft.openai.samples.demo;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -12,6 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.azure.ai.openai.OpenAIAsyncClient;
 import com.azure.ai.openai.OpenAIClientBuilder;
 import com.azure.core.credential.AzureKeyCredential;
+import com.microsoft.openai.samples.demo.client.OpenAIVisionClient;
+import com.microsoft.openai.samples.demo.model.VisionResponse;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.textcompletion.CompletionSKFunction;
@@ -22,8 +24,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
 import java.util.concurrent.CountDownLatch;
-import com.microsoft.openai.samples.insurancedemo.client.OpenAIVisionClient;
-import com.microsoft.openai.samples.insurancedemo.model.VisionResponse;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, properties = {"server.port=8080"})

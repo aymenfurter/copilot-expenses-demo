@@ -1,4 +1,4 @@
-package com.microsoft.openai.samples.insurancedemo;
+package com.microsoft.openai.samples.demo;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.microsoft.openai.samples.insurancedemo.model.InsuranceResponse;
+import com.microsoft.openai.samples.demo.model.Response;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +36,7 @@ public class ImageAnalysisControllerIntegrationTest {
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", new HttpEntity<>(imageResource, createImageHeaders()));
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, createMultipartHeaders());
-        ResponseEntity<InsuranceResponse> response = restTemplate.postForEntity("/api/image-analysis/upload", requestEntity, InsuranceResponse.class);
+        ResponseEntity<Response> response = restTemplate.postForEntity("/api/image-analysis/upload", requestEntity, Response.class);
         assertNotNull(response.getBody());
     }
 

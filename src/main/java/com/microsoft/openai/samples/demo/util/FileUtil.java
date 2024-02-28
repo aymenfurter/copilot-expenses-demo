@@ -1,4 +1,4 @@
-package com.microsoft.openai.samples.insurancedemo.util;
+package com.microsoft.openai.samples.demo.util;
 
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;

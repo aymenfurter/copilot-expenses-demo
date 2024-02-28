@@ -1,6 +1,6 @@
-package com.microsoft.openai.samples.insurancedemo.model;
+package com.microsoft.openai.samples.demo.model;
 
-public class InsuranceResponse {
+public class Response {
     private String replyText;
     private ExpenseType expenseType;
     private String numberOfPeople;
@@ -9,7 +9,7 @@ public class InsuranceResponse {
     private String numberOfPeopleReasoning;
     private String total;
 
-    public InsuranceResponse(String replyText, ExpenseType expenseType, String merchantName, String numberOfPeople, String geographicalLocation, String numberOfPeopleReasoning, String total) {
+    public Response(String replyText, ExpenseType expenseType, String merchantName, String numberOfPeople, String geographicalLocation, String numberOfPeopleReasoning, String total) {
         this.replyText = replyText;
         this.expenseType = expenseType;
         this.numberOfPeople = numberOfPeople;
