@@ -11,12 +11,19 @@ import com.microsoft.openai.samples.demo.util.FileUtil;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.SKBuilders;
 import com.microsoft.semantickernel.orchestration.SKContext;
+import com.microsoft.semantickernel.orchestration.SKFunction;
 import com.microsoft.semantickernel.planner.actionplanner.ActionPlanner;
 import com.microsoft.semantickernel.planner.sequentialplanner.SequentialPlanner;
 import com.microsoft.semantickernel.planner.sequentialplanner.SequentialPlannerRequestSettings;
 import com.microsoft.semantickernel.planner.stepwiseplanner.DefaultStepwisePlanner;
 import com.microsoft.semantickernel.planner.stepwiseplanner.StepwisePlanner;
+import com.microsoft.semantickernel.semanticfunctions.PromptTemplateConfig;
 import com.microsoft.semantickernel.textcompletion.TextCompletion;
+import com.microsoft.semantickernel.orchestration.SKFunction;
+import com.microsoft.semantickernel.orchestration.SKContext;
+import com.microsoft.semantickernel.semanticfunctions.PromptTemplateConfig;
+
+import reactor.core.publisher.Mono;
 
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.imaging.common.GenericImageMetadata;
@@ -88,7 +95,7 @@ public class ImageAnalysisService {
 
         TextCompletion chatCompletion = SKBuilders.chatCompletion()
                 .withOpenAIClient(client)
-                .withModelId("gpt-4-32k")
+                .withModelId("gpt-35")
                 .build();
 
         Kernel kernel = SKBuilders.kernel()
@@ -103,6 +110,16 @@ public class ImageAnalysisService {
         StepwisePlanner planner = new DefaultStepwisePlanner(kernel, null, null); 
         var plan = planner.createPlan(goal);
         SKContext result = plan.invokeAsync().block();
-        return result.getResult();
+
+        String resultText = result.getResult();
+        SKFunction rewrite = kernel
+                .getSemanticFunctionBuilder()
+                .withPromptTemplate("{{$input}} \n Rewrite the above analysis in a customer facing way. Format it using HTML tags, start with <div> tag (full HTML is not required, don't write ```html just start with <div>.. ). Use list items for the extracted information. Use a table for the expense policy information. Use an emoji in your response. Write the text semi-formal.")
+                .withFunctionName("format")
+                .build();
+
+        Mono<SKContext> rewriteResult = rewrite.invokeAsync(resultText);
+
+        return rewriteResult.block().getResult();
     }
 }

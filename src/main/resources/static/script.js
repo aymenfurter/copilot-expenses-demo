@@ -75,7 +75,7 @@ function showExpenseTypes() {
 
 function populateForm(data) {
     document.getElementById('numberOfPeople').value = data.numberOfPeople || '';
-    document.getElementById('numberOfPeopleReasoning').innerHTML = data.numberOfPeopleReasoning || '';
+    document.getElementById('numberOfPeopleReasoning').innerHTML = "Source (From Receipt): " + data.numberOfPeopleReasoning || '';
     document.getElementById('merchantName').value = data.merchantName || '';
     document.getElementById('geographicalLocation').value = data.geographicalLocation || '';
     document.getElementById('total').value = data.total || '';
@@ -91,7 +91,7 @@ function populateForm(data) {
 function displayReplyText(text) {
     const replyText = document.getElementById('replyText');
     const replyTextContainer = document.getElementById('replyTextContainer');
-    replyText.textContent = text;
+    replyText.innerHTML = text;
 
     if (text) {
         replyTextContainer.style.display = 'flex';
